@@ -27,6 +27,20 @@
       justify-content:center;
       min-height:100vh;
     }
+
+    .cover-screen{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      background:#000 url("capa.jpg") center/cover no-repeat;
+      cursor:pointer;
+      transition:opacity .35s ease, visibility .35s ease;
+    }
+    .cover-screen.hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
     .app{
       width:100%;
       max-width:430px;
@@ -34,6 +48,7 @@
       background:#fff;
       overflow:hidden;
     }
+    .app.is-hidden{display:none}
     .status{
       height:34px;
       padding:10px 22px 0;
@@ -102,7 +117,8 @@
   </style>
 </head>
 <body>
-  <main class="app">
+  <div id="coverScreen" class="cover-screen" role="button" tabindex="0" aria-label="Abrir aplicativo"></div>
+  <main class="app is-hidden">
     <div class="status"><span id="clock">6:01</span><div class="status-icons"><div class="signal"><span></span><span></span><span></span></div><div class="wifi"></div><div class="battery"></div></div></div>
     <nav class="tabs">
       <button class="tab active" data-tab="resumo">Resumo</button>
@@ -272,6 +288,23 @@
     ];
 
     const $ = selector => document.querySelector(selector);
+
+    function enterApp(){
+      const coverScreen = document.getElementById('coverScreen');
+      const app = document.querySelector('.app');
+      if(coverScreen) coverScreen.classList.add('hidden');
+      if(app) app.classList.remove('is-hidden');
+    }
+    const coverScreen = document.getElementById('coverScreen');
+    if(coverScreen){
+      coverScreen.addEventListener('click', enterApp, {once:true});
+      coverScreen.addEventListener('keydown', event => {
+        if(event.key === 'Enter' || event.key === ' '){
+          event.preventDefault();
+          enterApp();
+        }
+      });
+    }
     let selected = null;
     let items = JSON.parse(localStorage.getItem('nutriPlateItems') || '[]');
     let history = JSON.parse(localStorage.getItem('nutriPlateHistory') || '[]');
@@ -454,6 +487,8 @@
     function tick(){ $('#clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
     tick(); setInterval(tick, 30000); renderAll();
   </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"39e87a2afe7c46788f2fe28e3346cf27","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"39e87a2afe7c46788f2fe28e3346cf27","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
