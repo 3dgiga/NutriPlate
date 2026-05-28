@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriPlate</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+      background:#000;
+      font-family:Arial, sans-serif;
+    }
+
+    .cover{
+      width:100%;
+      height:100vh;
+      display:block;
+      position:relative;
+      cursor:pointer;
+    }
+
+    .cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.15);
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding-bottom:60px;
+    }
+
+    .enter{
+      background:#ffffff;
+      color:#111;
+      border:none;
+      padding:16px 28px;
+      border-radius:18px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+      transition:0.2s;
+    }
+
+    .enter:active{
+      transform:scale(0.97);
+    }
+  </style>
+</head>
+<body>
+
+  <a href="app.html" class="cover">
+    <img src="capa.jpg" alt="Capa NutriPlate">
+
+    <div class="overlay">
+      <button class="enter">
+        Entrar
+      </button>
+    </div>
+  </a>
+
+</body>
+</html>
